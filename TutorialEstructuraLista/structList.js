@@ -2,6 +2,7 @@ class List {
 
     constructor() {
         this.head = null
+        this.length = 0
     }
 
     push(data) {
@@ -13,15 +14,81 @@ class List {
             this.last.next = node
         }
         this.last = node
+        this.length++
     }
 
     print() {
         let aux = this.head
-        while (aux != null) {
-            console.log(aux.data)
+        if (aux == null) {
+            aux = 'There are no data !!!'
+        } else {
+            while (aux != null) {
+                console.log(aux.data)
+                aux = aux.next
+            }
+        }
+        return aux
+    }
+
+    getLastElement() {
+        let aux = this.head
+        if (aux == null) {
+            aux = 'There are no data !!!'
+        } else {
+            while (aux != null && aux.next != null ) {
+                aux = aux.next
+            }
+        }
+        return aux            
+    }
+
+    getElementByIndex(index) {
+        let aux = this.head
+        let auctIndex = 0
+        if (index < 0 ) {
+            aux = 'Indices less than "0" are not allowed'
+        } else if (aux == null) {
+            aux = 'There are no data !!!'
+        } else if (index >= this.length) {
+            aux = 'The entered index is out of range !!!'
+        } else {
+            while(aux != null && auctIndex != index) {
+                aux = aux.next
+                auctIndex++
+            }
+        }
+        return aux
+    }
+
+    find(element) {
+        let aux = this.head
+        if (aux == null) {
+            aux = 'There are no data !!!'
+        } else {
+            let cont = 0
+            while (cont < this.length) {
+                if (aux.data == element) {
+                    return aux
+                }
+                aux = aux.next
+                cont++
+            }
+            aux = 'No results found !!!'
+        }
+        return aux
+    }
+
+    delete(element) {
+        let aux = this.head
+        if (aux == null) {return 'There are no data !!!'} 
+        if (aux.data == element) {this.head = aux.next; this.length--; return aux.data}
+        while (aux.next.data != element) {
             aux = aux.next
         }
+        aux.next = aux.next.next
+        this.length--        
     }
+
 }
 
 class Node {
@@ -31,8 +98,8 @@ class Node {
     }
 }
 
-let mylist = new List()
+/* let mylist = new List()
 mylist.push(1)
 mylist.push(3)
 mylist.push(10)
-mylist.push(16)
+mylist.push(16) */
